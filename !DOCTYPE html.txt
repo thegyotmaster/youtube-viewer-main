@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Proxy Lite</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px #000;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 50%;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff4b2b;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff416c;
+    }
+
+    #player {
+      margin-top: 30px;
+    }
+
+    iframe {
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.6);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>YouTube Viewer</h1>
+  <form id="videoForm">
+    <input type="text" id="videoURL" placeholder="Enter YouTube URL">
+    <button type="submit">Watch</button>
+  </form>
+  <div id="player"></div>
+
+  <script>
+    document.getElementById('videoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var url = document.getElementById('videoURL').value;
+      var videoID = '';
+
+      if (url.includes('youtube.com/watch?v=')) {
+        videoID = url.split('v=')[1].split('&')[0];
+      } else if (url.includes('youtu.be/')) {
+        videoID = url.split('youtu.be/')[1];
+      }
+
+      if (videoID) {
+        document.getElementById('player').innerHTML =
+          `<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${videoID}" frameborder="0" allowfullscreen></iframe>`;
+      } else {
+        document.getElementById('player').innerHTML = '<p>Invalid YouTube URL.</p>';
+      }
+    });
+  </script>
+</body>
+</html>
